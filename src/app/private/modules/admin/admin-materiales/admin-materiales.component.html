@@ -1,0 +1,115 @@
+<div class="card">
+    <h3>Materiales</h3>
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2"
+                (click)="openNewMaterial()"></button>
+            <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
+                (click)="showDeleteMaterialesDialog()"
+                [disabled]="!selectedMateriales || !selectedMateriales.length"></button>
+        </ng-template>
+      
+    </p-toolbar>
+
+    <p-table [value]="materiales" [rows]="10" [paginator]="true"
+    [globalFilterFields]="['numeroBoletaEmpleado', 'isbn']" [tableStyle]="{'min-width': '100%'}"
+    [(selection)]="selectedMateriales" [rowHover]="true" dataKey="idMateriales" [responsive]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true"
+    [resizableColumns]="true" [autoLayout]="true" [style]="{maxWidth: '100%'}" [responsiveLayout]="'stack'"
+    breakpoint="600px">
+
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Control de materiales</h5>
+                <span class="p-input-icon-left">
+                    <div class="p-inputgroup">
+        
+                    </div>
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 4rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="idMateriales">ID material
+                    <p-sortIcon field="idMateriales"></p-sortIcon>
+                </th>
+                <th pSortableColumn="estado">Estado
+                    <p-sortIcon field="estado"></p-sortIcon>
+                </th>
+                <th pSortableColumn="tipo">Tipo material
+                    <p-sortIcon field="tipo"></p-sortIcon>
+                </th>
+                <th>Acciones</th>
+               
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-material>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="material"></p-tableCheckbox>
+                </td>
+
+                <td><span class="p-column-title" style = "text-align: center;">ID material</span>{{material.idMateriales}}</td>
+
+                <td><span class="p-column-title">Estado</span>{{material.Estado}}</td>
+
+                <td><span class="p-column-title">Tipo</span>{{ getTipoLabel(material.Tipo) }}</td>
+
+                <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                    (click)="editMaterial(material)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                    (click)="showDeleteMaterialDialog(material)"></button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+<p-dialog [(visible)]="materialDialog" [draggable]="false" [resizable]="false" header="Datos material" [modal]="true"
+    styleClass="p-fluid" [maximizable]="true">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="tipo">Tipo material</label>
+            <p-dropdown [options]="tipoMaterial" [(ngModel)]="material.Tipo" appendTo="body"
+                inputId="tipo"></p-dropdown>
+            <small class="p-error" *ngIf="submitted && !material.Tipo">Tipo de material es requerido.</small>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+            (click)="hideDialog()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
+            (click)="saveMaterial()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog header="Eliminar material" [(visible)]="deleteMaterialDialog" [responsive]="true">
+    <p>
+        ¿Estás seguro de que deseas eliminar el material {{ material.idMateriales }}?
+    </p>
+    <button pButton pRipple label="Si" icon="pi pi-check" class="p-button-text"
+        (click)="confirmDeleteSelectedMaterial()"></button>
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+        (click)="deleteMaterialDialog=false"></button>
+</p-dialog>
+
+<p-dialog header="Eliminar materiales" [(visible)]="deleteMaterialesDialog" [responsive]="true">
+    <p>
+        ¿Estás seguro de que deseas eliminar los materiales seleccionados?
+    </p>
+    <button pButton pRipple label="Si" icon="pi pi-check" class="p-button-text"
+        (click)="deleteSelectedMateriales()"></button>
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+        (click)="deleteMaterialesDialog= false"></button>
+</p-dialog>
+
+<p-toast position="top-right"></p-toast>

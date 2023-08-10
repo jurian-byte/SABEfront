@@ -1,0 +1,13 @@
+{
+    "User": {
+        "PersonID": "0000000000",
+        "FullName": "Usuario de Prueba",
+        "FirstName": "Usuario",
+        "MiddleName": "de",
+        "LastName": "Prueba",
+        "Email": "example@example.com",
+        "IsAdmin": false,
+        "Active": true
+    },
+    "JWT": "asdkasdkl;jasf;ljkfdsjklsflkoiuwe"
+}

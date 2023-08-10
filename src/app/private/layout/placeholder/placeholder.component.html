@@ -1,0 +1,164 @@
+<div class="grid">
+
+  <ng-container *ngIf="usuarioInfo?.user?.role?.name !== 'Superadministrador' && usuarioInfo?.user?.role?.name !== 'Admin'">
+    <div class="col-12">
+      <div class="card m min-h-full welcome-card">
+        <h3>Bienvenido</h3>
+        <p class="welcome-message">¡Hola, {{usuarioInfo.user.nombres}}!</p>
+      </div>
+    </div>
+    
+    <div class="col-12 md:col-6" routerLink="/inicio/prestamos" style="cursor: pointer;">
+      <div class="card">
+        <h3>
+        Préstamos
+        </h3>
+        <div class="formgrid grid">
+          <div class="field col-12 md:col-6">
+            <h4>{{usuarioInfo.prestamosActivos}}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="col-12 md:col-6" routerLink="/inicio/multas"  style="cursor: pointer;">
+    <div class="card">
+      <h3>
+        Multas
+      </h3>
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+          <h4>{{usuarioInfo.multas}}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 md:col-6">
+    <div class="card">
+      <h3>
+       Devoluciones
+      </h3>
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+          <h4>{{usuarioInfo.prestamosFinalizados}}</h4> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-12 md:col-6" routerLink="/inicio/fila-virtual" style="cursor: pointer;">
+    <div class="card">
+      <h3>
+    Fila virtual
+      </h3>
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+          <h4>{{usuarioInfo.turnosActivos}}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+
+<ng-container *ngIf="usuarioInfo?.user?.role?.name === 'Superadministrador' || usuarioInfo?.user?.role?.name === 'Admin'">
+  <div class="col-12">
+    <div class="card m min-h-full welcome-card">
+      <h3>Bienvenido</h3>
+      <p class="welcome-message">¡Hola, administrador {{usuarioInfo.user.nombres}}!</p>
+    </div>
+  </div>
+    <ng-container *ngIf="usuarioInfo?.user?.role?.name === 'Superadministrador' ">
+      <div class="col-12" routerLink="/inicio/super-admin-admins" style="cursor:pointer">
+        <div class="card">
+          <h4 class="center-text">Gestión de administradores </h4> 
+        </div>
+      </div>
+    </ng-container>
+  <div class="col-12 md:col-6" routerLink="/inicio/admin-usuarios" style="cursor: pointer;">
+    <div class="card">
+      <h4>Administración usuarios </h4>
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 md:col-6" routerLink="/inicio/admin-libros" style="cursor: pointer;">
+    <div class="card">
+      <h4>Administración libros </h4>
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 md:col-6" routerLink="/inicio/admin-materiales" style="cursor: pointer;">
+    <div class="card">
+      <h4>Administración materiales</h4>
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 md:col-6" routerLink="/inicio/admin-prestamos" style="cursor: pointer;">
+    <div class="card">
+      <h4> Administración prestamos </h4>
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 md:col-6" routerLink="/inicio/admin-multas" style="cursor: pointer;">
+    <div class="card">
+      <h4>  Administración multas</h4>
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 md:col-6" routerLink="/inicio/admin-encuestas" style="cursor: pointer;">
+    <div class="card">
+      <h4> Administración encuestas</h4>
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+</div>
+
+
+
+<p-dialog [visible]="displayDialog()" (onHide)="hideDialog()" [draggable]="false" [resizable]="false" header="Encuesta de satisfacción"
+  [modal]="true" styleClass="p-fluid" [closable]="respuestasCompletas" [closeOnEscape]="respuestasCompletas">
+  <ng-template pTemplate="content">
+    <div>
+      <div class="card-header"></div>
+      <div class="card-body">
+        <p>Sabemos que recientemente concluiste un(os) préstamo(s).</p>
+
+        <p>Ayúdanos contestando esta breve encuesta de satisfacción: (Considerando una escala del 1 al 5)</p>
+        <ng-container *ngFor="let pregunta of preguntas">
+          <div class="pregunta-item">
+            <div class="pregunta">{{ pregunta.pregunta }}</div>
+            <div class="respuesta">
+              <p-rating [(ngModel)]="pregunta.rating" [cancel]="false" [readonly]="false"
+                (ngModelChange)="checkRespuestasCompletas()"></p-rating>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Enviar respuestas" icon="pi pi-check" class="p-button-text"
+      (click)="enviarRespuestas()" [disabled]="!respuestasCompletas"></button>
+  </ng-template>
+</p-dialog>
+<p-toast></p-toast>

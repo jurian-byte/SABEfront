@@ -1,0 +1,306 @@
+<p-tabView>
+  <p-tabPanel header="Prestamos libros">
+    <div class="card">
+      <h3>Prestamos libros</h3>
+      <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2"
+            (click)="openNew()"></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+          <button pButton pRipple label="Descargar" icon="pi pi-download" class="p-button-info"
+            (click)="downloadPDFLibro()"></button>
+        </ng-template>
+      </p-toolbar>
+
+      <p-table [value]="prestamoLibros"[rows]="10" [paginator]="true"
+      [globalFilterFields]="['numeroBoletaEmpleado', 'isbn']" [tableStyle]="{'min-width': '100%'}"
+      [(selection)]="selectedPrestamoLibros" [rowHover]="true" dataKey="idPrestamoL" [responsive]="true"
+      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true"
+      [resizableColumns]="true" [autoLayout]="true" [style]="{maxWidth: '100%'}" [responsiveLayout]="'stack'"
+      breakpoint="600px">
+
+        <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">Control de prestamos</h5>
+            <span class="p-input-icon-left">
+              <div class="p-inputgroup">
+              </div>
+            </span>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="idUsuario" style="text-align: center;">ID usuario <p-sortIcon
+                field="idUsuario"></p-sortIcon></th>
+            <th pSortableColumn="idPrestamo" style="text-align: center;">ID prestamo <p-sortIcon
+                field="idPrestamo"></p-sortIcon></th>
+            <th pSortableColumn="isbnLibro" style="text-align: center;">ISBN libro <p-sortIcon
+                field="isbnLibro"></p-sortIcon></th>
+            <th pSortableColumn="nombreLibro" style="text-align: center;">Nombre libro <p-sortIcon
+                field="nombreLibro"></p-sortIcon></th>
+            <th pSortableColumn="fechaSolicitud" style="text-align: center;">Fecha de solicitud <p-sortIcon
+                field="fechaSolicitud"></p-sortIcon></th>
+            <th pSortableColumn="fechaDevolucion" style="text-align: center;">Fecha devolucion <p-sortIcon
+                field="fechaDevolucion"></p-sortIcon></th>
+            <th style="text-align: center;">Acciones</th>
+          </tr>
+        </ng-template>
+
+
+
+        <ng-template pTemplate="body" let-prestamoLibro>
+          <tr>
+        
+            <td><span class="p-column-title">Número boleta </span>{{prestamoLibro.User?.numeroBoleta}}
+            </td>
+
+            <td><span class="p-column-title">ID prestamo</span>{{prestamoLibro.idPrestamoL}}</td>
+
+
+            <td><span class="p-column-title">ISBN</span>{{prestamoLibro?.Ejemp?.libro_ISBN}}</td>
+
+
+            <td><span class="p-column-title">Nombre</span>{{prestamoLibro?.Ejemp?.Libro.nombre}}</td>
+
+
+           <!--  <td><span class="p-column-title">Fecha solicitud</span>{{prestamoLibro.inicio |
+              date:"yyyy/MM/dd"}}</td>
+
+
+            <td><span class="p-column-title">Fecha devolución</span>{{prestamoLibro.vencimiento |
+              date:"yyyy/MM/dd"}}</td> -->
+
+              <td><span class="p-column-title">Fecha solicitud</span>{{ prestamoLibro.inicio | date:'yyyy/MM/dd' }}</td>
+              <td><span class="p-column-title">Fecha devolución</span>{{ prestamoLibro.vencimiento | date:'yyyy/MM/dd' }}</td>
+              
+
+            <td>
+             
+              <button [disabled]="prestamoLibro.estado === 'Finalizado' || prestamoLibro.estado === 'Contestado'"
+                pButton pRipple icon="pi pi-ban" class="p-button-rounded p-button-warning"
+                (click)="showDeletePrestamoLibroDialog(prestamoLibro)"></button>
+    
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+
+
+    <p-dialog [(visible)]="prestamoLibroDialog" [draggable]="false" [resizable]="false" header="Datos prestamo"
+      [modal]="true" styleClass="p-fluid" [maximizable]="true">
+
+      <ng-template pTemplate="content">
+
+        <div class="field">
+          <label for="numeroBoletaEmpleado">Numero de boleta usuario</label>
+          <input type="text" pInputText id="numeroBoletaEmpleado" [(ngModel)]="prestamoLibro.numeroBoleta" required
+            autofocus />
+          <small class="p-error" *ngIf="submitted && !prestamoLibro.numeroBoleta">El numero de boleta/empleado
+            es requerido.</small>
+        </div>
+
+        <div class="field">
+          <label for="isbnLibro">ISBN libro</label>
+          <input type="text" pInputText id="isbnLibro" [placeholder]='' [(ngModel)]="prestamoLibro.libro_ISBN" required
+            autofocus (keypress)="numberOnly($event)" />
+          <small class="p-error" *ngIf="submitted && !prestamoLibro.libro_ISBN">El ISBN es requerido.</small>
+        </div>
+        
+
+
+        <div class="field">
+          <label for="fechaSolicitud">Fecha solicitud</label>
+          <p-calendar [(ngModel)]="prestamoLibro.inicio" dateFormat="yy-mm-dd" inputId="fechaSolicitud"
+            [showIcon]="true" appendTo="body"></p-calendar>
+        </div>
+
+        <div class="field">
+          <label for="fechaDevolucion">Fecha devolución</label>
+          <p-calendar [(ngModel)]="prestamoLibro.vencimiento" [showIcon]="true" dateFormat="yy-mm-dd"
+            inputId="fechaDevolucion" appendTo="body"></p-calendar>
+        </div>
+      </ng-template>
+
+
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+          (click)="hideDialog()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
+          (click)="savePrestamoLibro()"></button>
+      </ng-template>
+    </p-dialog>
+
+
+
+
+    <p-dialog header="Desactivar prestamo de libro" [(visible)]="deletePrestamoLibroDialog" [responsive]="true">
+      <p>
+        ¿Estás seguro de que deseas desactivar el prestamo {{prestamoLibro.idPrestamoL}}?
+      </p>
+
+      <button pButton pRipple label="Si" icon="pi pi-check" class="p-button-text"
+        (click)="confirmDeletePrestamoLibro()"></button>
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+        (click)="deletePrestamoLibroDialog =false"></button>
+    </p-dialog>
+
+  </p-tabPanel>
+<p-toast></p-toast>
+
+  <p-tabPanel header="Prestamos materiales">
+    <div class="card">
+      <h3>Prestamos materiales</h3>
+      <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2"
+            (click)="openNewMaterial()"></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+          <button pButton pRipple label="Descargar" icon="pi pi-download" class="p-button-info"
+            (click)="downloadPDFMaterial()"></button>
+        </ng-template>
+      </p-toolbar>
+
+      <p-table [value]="prestamoMateriales" [rows]="10" [paginator]="true"
+      [globalFilterFields]="['numeroBoletaEmpleado', 'isbn']" [tableStyle]="{'min-width': '100%'}"
+      [(selection)]="selectedPrestamoMateriales" [rowHover]="true" dataKey="idPrestamoM" [responsive]="true"
+      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true"
+      [resizableColumns]="true" [autoLayout]="true" [style]="{maxWidth: '100%'}" [responsiveLayout]="'stack'"
+      breakpoint="600px">
+
+
+        <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">Control de prestamos materiales</h5>
+            <span class="p-input-icon-left">
+              <div class="p-inputgroup">
+              
+              </div>
+            </span>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+          <tr>
+            <!-- <th style="width: 4rem; text-align: center;">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th> -->
+            <th pSortableColumn="idUsuario" style="text-align: center;">ID usuario <p-sortIcon
+                field="idUsuario"></p-sortIcon></th>
+            <th pSortableColumn="idPrestamo" style="text-align: center;">ID prestamo <p-sortIcon
+                field="idPrestamo"></p-sortIcon></th>
+            <th pSortableColumn="idMaterial" style="text-align: center;">ID Material<p-sortIcon
+                field="isbnLibro"></p-sortIcon></th>
+
+            <th pSortableColumn="fechaSolicitud" style="text-align: center;">Fecha de solicitud <p-sortIcon
+                field="fechaSolicitud"></p-sortIcon></th>
+            <th pSortableColumn="fechaDevolucion" style="text-align: center;">Fecha devolucion <p-sortIcon
+                field="fechaDevolucion"></p-sortIcon></th>
+            <th style="text-align: center;">Acciones</th>
+            
+          </tr>
+
+
+        </ng-template>
+
+        <ng-template pTemplate="body" let-prestamoMaterial>
+          <tr>
+            <td style="text-align: center;"><span class="p-column-title">Número boleta</span>{{prestamoMaterial?.User?.numeroBoleta}}
+            </td>
+            <td style="text-align: center;"><span class="p-column-title">ID préstamo</span>{{prestamoMaterial.idPrestamoM}}</td>
+            <td style="text-align: center;"><span class="p-column-title">ID material</span>{{prestamoMaterial.material_id}}</td>
+            <td style="text-align: center;"><span class="p-column-title">Fecha solicitud</span>{{prestamoMaterial.inicio |
+              date:"yyyy/MM/dd"}}</td>
+            <td style="text-align: center;"><span class="p-column-title">Fecha devolución</span>{{prestamoMaterial.vencimiento |
+              date:"yyyy/MM/dd"}}</td>
+            <td style="text-align: center;">
+             
+              <button [disabled]="prestamoMaterial.estado === 'Finalizado'|| prestamoMaterial.estado === 'Contestado'"
+                pButton pRipple icon="pi pi-ban" class="p-button-rounded p-button-warning"
+                (click)="showDeletePrestamoMaterialDialog(prestamoMaterial)"></button>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+
+
+    <p-dialog [(visible)]="prestamoMaterialDialog" [draggable]="false" [resizable]="false"
+      header="Datos prestamo material" [modal]="true" styleClass="p-fluid" [maximizable]="true">
+      <ng-template pTemplate="content">
+
+        <div class="field">
+          <label for="numeroBoletaEmpleado">Numero de boleta usuario</label>
+          <input type="text" pInputText id="numeroBoletaEmpleado" [(ngModel)]="prestamoMaterial.numeroBoleta" required
+            autofocus />
+          <small class="p-error" *ngIf="submitted && !prestamoMaterial.numeroBoleta">El numero de
+            boleta/empleado
+            es requerido.</small>
+        </div>
+
+        <div class="field">
+          <label for="idMaterial">ID material</label>
+          <input type="text" pInputText id="idMaterial" [placeholder]='' [(ngModel)]="prestamoMaterial.material_id"
+            required autofocus (keypress)="numberOnly($event)"/>
+          <small class="p-error" *ngIf="submitted && !prestamoMaterial.material_id">El ID material es requerido.</small>
+        </div>
+
+
+        <div class="field">
+          <label for="fechaSolicitud">Fecha solicitud</label>
+          <p-calendar [(ngModel)]="prestamoMaterial.inicio" dateFormat="yy-mm-dd" inputId="fechaSolicitud"
+            [showIcon]="true" appendTo="body"></p-calendar>
+        </div>
+
+        <div class="field">
+          <label for="fechaDevolucion">Fecha devolución</label>
+          <p-calendar [(ngModel)]="prestamoMaterial.vencimiento" [showIcon]="true" dateFormat="yy-mm-dd"
+            inputId="fechaDevolucion" appendTo="body"></p-calendar>
+        </div>
+
+      </ng-template>
+
+
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+          (click)="hideDialogMaterial()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
+          (click)="savePrestamoMaterial()"></button>
+      </ng-template>
+    </p-dialog>
+
+
+
+
+    <p-dialog header="Desactivar prestamo material" [(visible)]="deletePrestamoMaterialDialog" [responsive]="true">
+      <p>
+        ¿Estás seguro de que deseas desactivar el prestamo {{prestamoMaterial.idPrestamoM}}?
+      </p>
+
+      <button pButton pRipple label="Si" icon="pi pi-check" class="p-button-text"
+        (click)="confrimDeleteSelectedPrestamoMaterial()"></button>
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+        (click)="deletePrestamoMaterialDialog =false"></button>
+    </p-dialog>
+
+
+   
+
+
+    <p-toast position="top-right"></p-toast>
+  </p-tabPanel>
+</p-tabView>
+
+```

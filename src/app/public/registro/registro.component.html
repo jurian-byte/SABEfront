@@ -1,0 +1,253 @@
+<div class="flex align-items-center justify-content-center h-screen w-screen overflow-hidden">
+  <div class="flex flex-column align-items-center justify-content-center">
+    <div
+      style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, #316eb4 10%, hsla(0, 0%, 100%, 0) 30%)">
+      <div class="card-width p-card py-8 px-5 sm:px-8" style="border-radius: 53px">
+        <div class="text-center mb-5">
+          <img src="assets\layout\images\Sabelogo.png" alt="Image" height="50" class="mb-3">
+          <div class="text-900 text-3xl font-medium mb-3">Bienvenido </div>
+          <span class="text-600 font-medium">Regístrate para continuar</span>
+        </div>
+        <div class="col-12" style="overflow: auto; max-height: 400px;">
+          <form [formGroup]="formUsuario" (ngSubmit)="onSubmit()">
+            <div class="formgrid grid">
+
+              <div class="field col-12 md:col-6">
+                <input id="numeroBoleta" type="text" formControlName="numeroBoleta"
+                  class="p-inputtext p-component w-full" placeholder="Numero de boleta o empleado"
+                  [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('numeroBoleta')?.invalid && formUsuario.get('numeroBoleta')?.touched, 'input-filled': formUsuario.get('numeroBoleta')?.value }" (keypress)="numberOnly($event)" />
+                <p-message *ngIf="formUsuario.get('numeroBoleta')?.invalid && formUsuario.get('numeroBoleta')?.touched"
+                  severity="error" text="El numero es requerido"></p-message>
+              </div>
+
+              <div class="field col-12 md:col-6">
+
+                <input id="nombres" type="text" formControlName="nombres" class="p-inputtext p-component w-full"
+                  placeholder="Nombre(s)"
+                  [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('nombres')?.invalid && formUsuario.get('nombres')?.touched, 'input-filled': formUsuario.get('nombres')?.value }"
+                   />
+                <p-message *ngIf="formUsuario.get('nombres')?.invalid && formUsuario.get('nombres')?.touched"
+                  severity="error" text="El nombre es requerido"></p-message>
+
+              </div>
+
+              <div class="field col-12 md:col-6">
+
+                <input id="apellidoPaterno" type="text" formControlName="apellidoPaterno"
+                  class="p-inputtext p-component w-full" placeholder="Apellido paterno"
+                  [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('apellidoPaterno')?.invalid && formUsuario.get('apellidoPaterno')?.touched, 'input-filled': formUsuario.get('apellidoPaterno')?.value }" />
+
+                <p-message
+                  *ngIf="formUsuario.get('apellidoPaterno')?.invalid && formUsuario.get('apellidoPaterno')?.touched"
+                  severity="error" text="El apellido paterno es requerido"></p-message>
+              </div>
+
+
+
+              <div class="field col-12 md:col-6">
+
+                <input id="apellidoMaterno" type="text" formControlName="apellidoMaterno"
+                  class="p-inputtext p-component w-full" placeholder="Apellido materno"
+                  [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('apellidoMaterno')?.invalid && formUsuario.get('apellidoMaterno')?.touched, 'input-filled': formUsuario.get('apellidoMaterno')?.value }" />
+                <p-message
+                  *ngIf="formUsuario.get('apellidoMaterno')?.invalid && formUsuario.get('apellidoMaterno')?.touched"
+                  severity="error" text="El apellido materno es requerido"></p-message>
+              </div>
+
+
+
+              <div class="field col-12 md:col-6">
+
+                <input id="calle" type="text" formControlName="calle" class="p-inputtext p-component w-full"
+                  placeholder="Calle"
+                  [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('calle')?.invalid && formUsuario.get('calle')?.touched, 'input-filled': formUsuario.get('calle')?.value }" />
+
+
+                <p-message *ngIf="formUsuario.get('calle')?.invalid && formUsuario.get('calle')?.touched"
+                  severity="error" text="La calle es requerida"></p-message>
+              </div>
+
+
+
+
+
+              <div class="field col-12 md:col-6">
+
+                <input id="numeroExterior" type="text" formControlName="numeroExterior"
+                  class="p-inputtext p-component w-full" placeholder="Numero exterior"
+                  [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('numeroExterior')?.invalid && formUsuario.get('numeroExterior')?.touched, 'input-filled': formUsuario.get('numeroExterior')?.value }" />
+
+
+                <p-message
+                  *ngIf="formUsuario.get('numeroExterior')?.invalid && formUsuario.get('numeroExterior')?.touched"
+                  severity="error" text="El numero exterior es requerido"></p-message>
+              </div>
+
+
+
+
+              <div class="field col-12 md:col-6">
+
+                <input id="numeroInterior '
+                      " type="text" formControlName="numeroInterior" class="p-inputtext p-component w-full"
+                  placeholder="Numero interior"
+                  [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('numeroInterior')?.invalid && formUsuario.get('numeroInterior')?.touched, 'input-filled': formUsuario.get('numeroInterior')?.value }" />
+
+
+                <p-message
+                  *ngIf="formUsuario.get('numeroInterior')?.invalid && formUsuario.get('numeroInterior')?.touched"
+                  severity="error" text="El numero interior es requerido"></p-message>
+              </div>
+
+
+              <div class="field col-12 md:col-6">
+
+                <input id="colonia" type="text" formControlName="colonia" class="p-inputtext p-component w-full"
+                  placeholder="Colonia"
+                  [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('colonia')?.invalid && formUsuario.get('colonia')?.touched,'input-filled': formUsuario.get('colonia')?.value }" />
+
+
+                <p-message *ngIf="formUsuario.get('colonia')?.invalid && formUsuario.get('colonia')?.touched"
+                  severity="error" text="La colonia es requerida"></p-message>
+              </div>
+
+
+
+
+              <div class="field col-12 md:col-6">
+
+                <input id="delegacionMunicipio" type="text" formControlName="delegacionMunicipio"
+                  class="p-inputtext p-component w-full" placeholder="Delegación o municipio"
+                  [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('delegacionMunicipio')?.invalid && formUsuario.get('delegacionMunicipio')?.touched,'input-filled': formUsuario.get('delegacionMunicipio')?.value }" />
+
+                <p-message
+                  *ngIf="formUsuario.get('delegacionMunicipio')?.invalid && formUsuario.get('delegacionMunicipio')?.touched"
+                  severity="error" text="La delegación o municipio es requerido"></p-message>
+              </div>
+
+
+
+
+              <div class="field col-12 md:col-6">
+                <input id="codigoPostal" type="text" formControlName="codigoPostal" placeholder="Código postal" maxlength="5"
+                  class="p-inputtext p-component w-full"
+                  [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('codigoPostal')?.invalid && formUsuario.get('codigoPostal')?.touched,'input-filled': formUsuario.get('codigoPostal')?.value }"
+                  (keypress)="numberOnly($event)" />
+
+
+                <p-message *ngIf="formUsuario.get('codigoPostal')?.invalid && formUsuario.get('codigoPostal')?.touched"
+                  severity="error" text="El código postal es requerido"></p-message>
+              </div>
+
+
+
+              <div class="field col-12 md:col-6">
+                <input id="celular" type="text" formControlName="celular" placeholder="Celular"
+                  class="p-inputtext p-component w-full" maxlength="10"
+                  [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('celular')?.invalid && formUsuario.get('celular')?.touched, 'input-filled': formUsuario.get('celular')?.value }" 
+                  (keypress)="numberOnly($event)" />
+              
+                <p-message *ngIf="formUsuario.get('celular')?.invalid && formUsuario.get('celular')?.touched"
+                  severity="error" text="El celular es requerido"></p-message>
+              </div>
+              
+
+
+              <div class="field col-12 md:col-6">
+
+                <input id="email" type="text" formControlName="email" class="p-inputtext p-component w-full"
+                  placeholder="Correo electronico"
+                  [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('email')?.invalid && formUsuario.get('email')?.touched, 'input-filled': formUsuario.get('email')?.value }" />
+
+
+                <p-message *ngIf="formUsuario.get('email')?.invalid && formUsuario.get('email')?.touched"
+                  severity="error" text="El correo clectronico es requerido"></p-message>
+              </div>
+
+
+
+              <div class="field col-12 md:col-6">
+                <p-password id="password" styleClass="p-password p-component p-inputwrapper p-input-icon-right w-full"
+                  placeholder=" Contraseña" formControlName="password"
+                  [inputStyleClass]="((formUsuario.get('password')?.touched || formUsuario.get('password')?.dirty)&& formUsuario.get('password')?.invalid)?'campo-invalido w-full':'campo w-full'"
+                  [feedback]="false" [toggleMask]="true"></p-password>
+
+                <p-message
+                  *ngIf="formUsuario.get('password_confirm')?.invalid && formUsuario.get('password_confirm')?.touched"
+                  severity="error" text="La contraseña es requerida"></p-message>
+              </div>
+
+
+
+
+              <div class="field col-12 md:col-6">
+                <p-password id="password_confirm"
+                  styleClass="p-password p-component p-inputwrapper p-input-icon-right w-full"
+                  placeholder="Confirmar Contraseña" formControlName="password_confirm"
+                  [inputStyleClass]="((formUsuario.get('password_confirm')?.touched || formUsuario.get('password_confirm')?.dirty)&& formUsuario.get('password_confirm')?.invalid)?'campo-invalido w-full':'campo w-full'"
+                  [feedback]="false" [toggleMask]="true"></p-password>
+
+
+                <p-message
+                  *ngIf="formUsuario.get('password_confirm')?.invalid && formUsuario.get('password_confirm')?.touched"
+                  severity="error" text="La contraseña es requerida"></p-message>
+                <p-message
+                  *ngIf="formUsuario.get('password_confirm')?.value != formUsuario.get('password')?.value && formUsuario.get('password_confirm')?.touched"
+                  severity="error" text="La contraseña y su confirmación no coinciden"></p-message>
+              </div>
+
+              <div class="field col-12">
+                <div class="text-center">
+                  <button type="submit" pButton [disabled]="formUsuario.invalid || cargando"
+                    label="{{ cargando ? 'Cargando...' : 'Registrarse' }}"
+                    class="p-button p-component p-d-block p-mx-auto" style="width: 70%; padding: 10px 0;"></button>
+                </div>
+              </div>
+
+
+            </div>
+            <p class="text-500 text-center mt-5">
+              ¿Ya tienes una cuenta?
+              <a routerLink="/login" class="text-primary ml-1">Inicia sesión</a>
+            </p>
+            <p class="text-500 text-center mt-5">
+              Lee nuestro aviso de privacidad
+              <a (click)="openAvisoPrivacidad()" class="text-primary ml-1" style="cursor: pointer;">aquí</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog [(visible)]="avisoPrivacidad" [breakpoints]="{'600px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}"
+  header="Aviso de privacidad" [modal]="true" [resizable]="false" [draggable]="false">
+  <p>Al registrarte en nuestro sistema, solicitamos ciertos datos personales. Este es un resumen de cómo manejamos estos
+    datos:</p>
+  <ul>
+    <li><strong>Recopilación de datos:</strong> Recopilamos la información necesaria para ofrecerte nuestros servicios.
+      Estos datos se utilizan exclusivamente para mejorar tu experiencia con nosotros.</li>
+    <li><strong>Uso de datos:</strong> Utilizamos la información recopilada para mejorar y personalizar nuestros
+      servicios para ti.</li>
+    <li><strong>Compartir datos:</strong> Nunca compartimos tu información personal con terceros sin tu permiso.</li>
+    <li><strong>Seguridad de la información:</strong> Hacemos todo lo posible para mantener tus datos seguros y
+      protegidos de accesos no autorizados o posibles violaciones.</li>
+    <li><strong>Acceso y actualización de tus datos:</strong> Puedes acceder, actualizar o eliminar tus datos en
+      cualquier momento. Solo debes recordar que mantener la confidencialidad de la información de tu cuenta, como
+      contraseñas, también es tu responsabilidad.</li>
+  </ul>
+
+  <p>Estamos comprometidos a resolver cualquier preocupación que puedas tener sobre la privacidad de tus datos. Al
+    registrarte en nuestro sistema, aceptas estas políticas.</p>
+
+  <p>Si tienes alguna pregunta sobre cómo manejamos tus datos, no dudes en contactarnos.</p>
+  <p>Correo: info@sabe.com</p>
+
+  <p><strong>Atentamente,</strong></p>
+  <p>SABE</p>
+
+</p-dialog>
+
+<p-toast></p-toast>
+```

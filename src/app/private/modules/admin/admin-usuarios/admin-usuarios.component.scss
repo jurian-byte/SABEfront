@@ -1,0 +1,22 @@
+@media screen and (max-width: 600px) {
+    .maximizable-dialog .ui-dialog-titlebar-icon {
+      display: block !important;
+    }
+  
+    .maximizable-dialog.ui-dialog-maximized {
+      width: 100% !important;
+      height: 100% !important;
+      top: 0 !important;
+      left: 0 !important;
+    }
+  
+    .maximizable-dialog .ui-dialog-content {
+      height: calc(100% - 53px) !important;
+    }
+  }
+  
+
+  .p-column-title {
+    font-weight: bold;
+  }
+  

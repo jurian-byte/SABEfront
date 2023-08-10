@@ -1,0 +1,73 @@
+<p-tabView>
+  <p-tabPanel header="Fila virtual libros">
+    <div class="card-header">
+      <h3>Fila virtual libros</h3>
+      <p-table [value]="filaVirtualLibros" responsiveLayout="stack" [breakpoint]="'600px'" [paginator]="true" [rows]="10">
+        {{filaVirtualLibros|json}}
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="text-center" style="width: 50%"><span class="p-column-title"></span>Nombre</th>
+            <th class="text-center" style="width: 50%"><span class="p-column-title"></span>Turno</th>
+          </tr>
+        </ng-template>
+        
+      <!--   <ng-template pTemplate="body" let-filaVirtualLibros>
+          <tr *ngFor="let filaVirtualLibro of filaVirtualLibros">
+            <td class="text-center">
+              <span class="p-column-title">Nombre</span>
+              {{filaVirtualLibro?.FilaVL?.Libro?.nombre}}
+            </td>
+        
+            <td class="text-center">
+              <span class="p-column-title">Turno</span>
+              {{filaVirtualLibro?.ticketL}}
+            </td>
+          </tr>
+        </ng-template> -->
+
+    
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="text-center" style="width: 50%"><span class="p-column-title"></span>Nombre</th>
+            <th class="text-center" style="width: 50%"><span class="p-column-title"></span>Turno</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-filaVirtualLibros>
+          <tr>
+         
+            <td class="text-center"><span class="p-column-title">Material</span>{{filaVirtualLibros?.FilaVL?.Libro?.nombre}}</td>
+            
+            <td class="text-center"><span class="p-column-title">Turno</span> {{filaVirtualLibros?.ticketL}}</td>
+          </tr>
+          
+        </ng-template>
+      </p-table>
+    </div>
+  </p-tabPanel>
+
+  <p-tabPanel header="Fila virtual materiales">
+    <div class="card-header">
+      <h3>Fila virtual materiales</h3>
+      <p-table [value]="filaVirtualMaterial" responsiveLayout="stack" [breakpoint]="'600px'" [paginator]="true" [rows]="10">
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="text-center" style="width: 50%"><span class="p-column-title"></span>Nombre</th>
+            <th class="text-center" style="width: 50%"><span class="p-column-title"></span>Turno</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-filaVirtualMaterial>
+          <tr>
+         
+            <td class="text-center"><span class="p-column-title">Material</span>{{getTipoLabel(filaVirtualMaterial?.FilaVM?.Material?.Tipo)}} {{filaVirtualMaterial?.FilaVM?.Material?.idMateriales}}</td>
+            
+            <td class="text-center"><span class="p-column-title">Turno</span>{{filaVirtualMaterial?.ticketM}}</td>
+          </tr>
+          
+        </ng-template>
+      </p-table>
+    </div>
+  </p-tabPanel>
+</p-tabView>
+
+<p-toast></p-toast>

@@ -1,0 +1,93 @@
+<div class="flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+    <div class="flex flex-column align-items-center justify-content-center">
+        <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, #316eb4 10%, hsla(0, 0%, 100%, 0) 30%);">
+            <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
+                <div class="text-center mb-5">
+                   <img src="assets\layout\images\Sabelogo.png" alt="Image" height="50" class="mb-3"> 
+                    <div class="text-900 text-3xl font-medium mb-3">Bienvenido </div>
+                    <span class="text-600 font-medium">Introduce tu correo electrónico y contraseña para continuar</span>
+                </div>
+
+                <form [formGroup]="formLogin" (ngSubmit)="onSubmitLogin()">
+                    <label for="email" class="block text-900 text-xl font-medium mb-2">Correo electrónico</label>
+                    <input id="email" type="text" placeholder="Correo electronico" pInputText class="w-full md:w-30rem mb-5"
+                        style="padding:1rem" formControlName="email" formControlName="email" [ngClass]="((formLogin.get('email')?.touched ||  formLogin.get('email')?.dirty)
+                        && formLogin.get('email')?.invalid)?'campo-invalido w-full':'campo'">
+                      
+
+                    <label for="password" class="block text-900 font-medium text-xl mb-2">Contraseña</label>
+                    <p-password inputId="password" placeholder="Contraseña"
+                        styleClass="p-password p-component p-inputwrapper p-input-icon-right w-full"
+                        formControlName="password" [inputStyleClass]="((formLogin.get('password')?.touched ||  formLogin.get('password')?.dirty)
+                        && formLogin.get('password')?.invalid)?'campo-invalido w-full':'campo w-full'"
+                        [feedback]="false" [toggleMask]="true"></p-password>
+
+                    <div class="flex align-items-center justify-content-between mb-5 gap-5">
+                        <a class="font-medium no-underline ml-2 text-right cursor-pointer"
+                            style="color: var(--primary-color)" (click)="displayRequest=true">¿Olvidaste tu
+                            contraseña?</a>
+                    </div>
+
+                    <p class="text-500 text-center mt-5">
+                        ¿No tienes una cuenta?
+                        <a routerLink="/registro" class="text-primary ml-1">Regístrate aquí</a>
+                      </p>
+
+                    <button pButton pRipple label="Entrar" class="w-full p-3 text-xl p-button-primary" type="submit"
+                        [loading]="loading"></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog [(visible)]="displayRequest" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}"
+    [modal]="true">
+    <ng-template pTemplate="header">
+        <h3>Recuperar contraseña</h3>
+    </ng-template>
+    <p>
+        <span class="text-900 text-xl font-medium mb-2">Introduce tu correo electronico para recuperar tu
+            contraseña</span>
+    </p>
+
+    <form [formGroup]="formRecuperar" (ngSubmit)="onSubmitRecuperar()">
+        <div class="form-group flex flex-column">
+            <input id="email" type="text" placeholder="Correo" pInputText class="" [ngClass]="((formRecuperar.get('email')?.touched ||  formRecuperar.get('email')?.dirty)
+                && formRecuperar.get('email')?.invalid)?'campo-invalido':'campo'" formControlName="email">
+            <p-message class="col-8"
+                *ngIf="(formRecuperar.get('email')?.touched  && formRecuperar.get('email')?.errors?.['required'])"
+                severity="error" text="El correo es requerido."></p-message>
+            <p-message class="col-8"
+                *ngIf="(formRecuperar.get('email')?.touched  &&formRecuperar.get('email')?.errors?.['email'])"
+                severity="error" text="Favor de ingresar un correo valido"></p-message>
+            <br><br>
+            <button pButton pRipple label="Enviar" class="w-full p-3 text-xl p-button-primary" type="submit"
+                [loading]="loading"></button>
+
+        </div>
+
+    </form>
+</p-dialog>
+
+<p-dialog [(visible)]="displayRequestSended" [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+    [style]="{width: '50vw'}" [modal]="true">
+    <ng-template pTemplate="header">
+    </ng-template>
+    <div class="text-900 text-3xl font-medium mb-3">¡Listo!</div>
+
+    <p>
+        Te hemos enviado un correo con las instrucciones para completar la recuperación de la contraseña.
+    </p>
+    <ng-template pTemplate="footer">
+
+        <button pButton pRipple label="Entendido" class="w-full p-3 text-xl  p-button-primary"
+            (click)="displayRequestSended=false"></button>
+    </ng-template>
+</p-dialog>
+
+<p-toast></p-toast>
+
+
+
+

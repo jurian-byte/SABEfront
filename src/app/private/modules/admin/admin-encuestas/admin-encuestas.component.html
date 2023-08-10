@@ -1,0 +1,122 @@
+<div class="card">
+    <h3>Encuesta</h3>
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2"
+                (click)="openNewPregunta()"></button>
+            <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
+                (click)="showDeletePreguntasDialog()"
+                [disabled]="!selectedPreguntas || !selectedPreguntas.length"></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <button pButton pRipple label="Descargar" icon="pi pi-download" class="p-button-info"
+                (click)="downloadPDFEncuesta()"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table [value]="preguntas" [rows]="10" [paginator]="true"
+    [globalFilterFields]="['idPregunta']" [tableStyle]="{'min-width': '100%'}"
+    [(selection)]="selectedPreguntas" [rowHover]="true" dataKey="idPregunta"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+    [showCurrentPageReport]="true" [resizableColumns]="true" [autoLayout]="true" [style]="{maxWidth: '100%'}"
+    [responsiveLayout]="'stack'" breakpoint="600px">
+
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Control de preguntas</h5>
+                <span class="p-input-icon-left">
+                    <div class="p-inputgroup">
+                    </div>
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 4rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="idPregunta">ID pregunta
+                    <p-sortIcon field="idPregunta"></p-sortIcon>
+                </th>
+                <th pSortableColumn="pregunta">Pregunta
+                    <p-sortIcon field="pregunta"></p-sortIcon>
+                </th>
+                <th>Acciones</th>
+               
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-pregunta>
+            <tr>
+                <td>
+
+                    <p-tableCheckbox [value]="pregunta"></p-tableCheckbox>
+                </td>
+
+                <td><span class="p-column-title">ID pregunta</span>{{pregunta.idPregunta}}</td>
+                <td><span class="p-column-title">Pregunta</span>{{pregunta.pregunta}}</td>
+                <td>
+                
+               
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                        (click)="editPregunta(pregunta)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                        (click)="showDeletePreguntaDialog(pregunta)"></button>
+                </td>
+
+
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<p-dialog [(visible)]="preguntaDialog" header="Datos pregunta" styleClass="p-fluid" [maximizable]="true" [responsive]="true">
+    <ng-template pTemplate="content">
+      <div class="field">
+        <label for="pregunta">Pregunta</label>
+        <div class="input-container">
+          <input type="text" pInputText id="pregunta" [(ngModel)]="pregunta.pregunta" required autofocus class="large-input" />
+        </div>
+        <small class="p-error" *ngIf="submitted && !pregunta.pregunta">Pregunta es requerida.</small>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="pregunta.pregunta && savePregunta()"></button>
+    </ng-template>
+  </p-dialog>
+  
+
+
+
+<p-dialog header="Eliminar pregunta" [(visible)]="deletePreguntaDialog" [responsive]="true">
+    <p>
+        ¿Estás seguro de que deseas eliminar la pregunta {{pregunta.idPregunta}}?
+    </p>
+    <button pButton pRipple label="Si" icon="pi pi-check" class="p-button-text"
+        (click)="confirmDeleteSelectedPregunta()"></button>
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+        (click)="deletePreguntaDialog=false"></button>
+</p-dialog>
+
+
+
+
+<p-dialog header="Eliminar preguntas" [(visible)]="deletePreguntasDialog" [responsive]="true">
+    <p>
+        ¿Estás seguro de que deseas eliminar las preguntas seleccionadas?
+    </p>
+    <button pButton pRipple label="Si" icon="pi pi-check" class="p-button-text"
+        (click)="deleteSelectedPreguntas()"></button>
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+        (click)="deletePreguntasDialog= false"></button>
+</p-dialog>
+
+<p-toast position="top-right"></p-toast>

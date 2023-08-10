@@ -1,0 +1,92 @@
+<div class="card">
+    <h3>Multas</h3>
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Descargar" icon="pi pi-download" class="p-button-info"
+                (click)="downloadPDFMultas()"></button>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+            <button pButton type="button" class="p-button-raised p-button-rounded " icon = "pi pi-plus-circle"  (click)="multaAutomatica()"></button>
+          </ng-template>
+          
+
+    </p-toolbar>
+
+    <p-table [value]="filteredMulta" [rows]="10" [paginator]="true" 
+        [tableStyle]="{'min-width': '100%'}" [(selection)]="selectedMultas" [rowHover]="true" dataKey="idmultas"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+        [showCurrentPageReport]="true" [resizableColumns]="true" [autoLayout]="true" [style]="{maxWidth: '100%'}"
+        [responsiveLayout]="'stack'" breakpoint="600px" >
+
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Control de multas</h5>
+                <span class="p-input-icon-left">
+                    <div class="p-inputgroup">
+                        <input pInputText type="text" (input)="filterMultas()" [(ngModel)]="searchText"
+                            placeholder="Buscar..." />
+                    </div>
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                
+                <th pSortableColumn="numeroBoletaEmpleado" style="min-width:10rem" >Número Boleta
+                    <p-sortIcon field="numeroBoletaEmpleado"></p-sortIcon>
+                </th>
+                <th pSortableColumn="idmultas" style="min-width:10rem" >ID multa
+                    <p-sortIcon field="idmultas"></p-sortIcon>
+                </th>
+                <th pSortableColumn="isbn" style="min-width:15rem" >ISBN
+                    <p-sortIcon field="isbn"></p-sortIcon>
+                </th>
+                <th pSortableColumn="fechaGenerada" style="min-width:10rem" >Fecha generada
+                    <p-sortIcon field="fechaGenerada"></p-sortIcon>
+                </th>
+                <th pSortableColumn="monto" style="min-width:10rem" >Monto
+                    <p-sortIcon field="monto"></p-sortIcon>
+                </th>
+                <th>Acciones</th>
+                
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-multa>
+            <tr>
+                <td><span class="p-column-title">Numero de boleta</span>{{ multa.PrestamoLibro.User.numeroBoleta}}</td>
+                <td><span class="p-column-title">ID multa</span>{{ multa.idmultas}}</td>
+                <td><span class="p-column-title">ISBN</span>{{ multa.PrestamoLibro.Ejemp.Libro.isbn }}</td>
+                <td><span class="p-column-title">Fecha generada</span>{{multa.fechagenerada|date: "yyyy/MM/dd"}}</td>
+                <td><span class="p-column-title">Monto</span>{{ multa.monto }}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-ban" class="p-button-rounded p-button-warning"
+                    [disabled]="multa.activo === 0"
+                    (click)="showDeleteMultaDialog(multa)"></button>
+                
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog header="Eliminar multa" [(visible)]="deleteMultaDialog" [responsive]="true" [modal]="true"
+  [style]="{ width: '450px' }">
+  <ng-template pTemplate="content">
+    <div class="confirmation-dialog">
+      <p>¿Estás seguro de que deseas marcar como pagada la multa {{ multa.idmultas}}?</p>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Si" icon="pi pi-check" class="p-button-text"
+    (click)="deleteSelectedMultas()"></button>
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+      (click)="deleteMultaDialog=false"></button>
+  </ng-template>
+</p-dialog>
+
+
+
+<p-toast></p-toast>
+```
+```

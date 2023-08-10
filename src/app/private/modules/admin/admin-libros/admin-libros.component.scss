@@ -1,0 +1,27 @@
+.custom-tooltip {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+  }
+  
+  .custom-tooltip .p-tooltip-text {
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .p-column-title {
+    font-weight: bold;
+  }
+  
+
+
+  .small-button {
+    font-size: 12px;
+    padding: 6px 10px;
+    margin-right: 10px; /* Agrega un margen a la derecha de cada botón */
+}
+.small-button-last {
+  margin-right: 0;
+}

@@ -1,0 +1,68 @@
+<p-tabView>
+  <p-tabPanel header="Libros">
+    <div class="card">
+      <div class="card-header">
+        <h3>Préstamos libros</h3>
+        <p-table [value]="prestamosLibros" responsiveLayout="stack" [breakpoint]="'600px'" [paginator]="true"
+          [rows]="10">
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="text-center" style="width: 33%"><span class="p-column-title"></span>Nombre </th>
+              <th class="text-center" style="width: 33%"><span class="p-column-title"></span>Fecha solicitud</th>
+              <th class="text-center" style="width: 33%"><span class="p-column-title"></span>Fecha Devolucion</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-prestamosLibros>
+            <tr>
+              <td class="text-center"><span class="p-column-title">Nombre</span>{{prestamosLibros.Ejemp.Libro.nombre}}</td>
+
+              <td class="text-center"><span class="p-column-title">Fecha
+                  solicitud</span>{{prestamosLibros.inicio| date:"yyyy/MM/dd"}}</td>
+
+
+              <td class="text-center"><span class="p-column-title">Fecha
+                  devolución</span>{{prestamosLibros.vencimiento| date:"yyyy/MM/dd"}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <p-toast></p-toast>
+  </p-tabPanel>
+
+
+
+  <p-tabPanel header="Materiales">
+    <div class="card">
+      <div class="card-header">
+        <h3>Préstamos material</h3>
+        <p-table [value]="prestamosMaterial" responsiveLayout="stack" [breakpoint]="'600px'" [paginator]="true"
+          [rows]="10">
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="text-center" style="width: 33%"><span class="p-column-title"></span>Nombre </th>
+
+              <th class="text-center" style="width: 33%"><span class="p-column-title"></span>Fecha solicitud</th>
+
+              <th class="text-center" style="width: 33%"><span class="p-column-title"></span>Fecha Devolucion</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-prestamosMaterial>
+            <tr>
+              <td class="text-center" style="width: 33%"><span
+                  class="p-column-title">Nombre</span>{{getTipoMaterialText(prestamosMaterial.Material.Tipo)}}</td>
+
+                  <td class="text-center" style = "width: 33%"><span class="p-column-title">Fecha solicitud</span>{{prestamosMaterial.inicio |
+                    date:"yyyy/MM/dd"}}</td>
+
+
+              <td class="text-center" style="width: 33%"><span class="p-column-title">Fecha
+                  devolución</span>{{prestamosMaterial?.vencimiento| date:"yyyy/MM/dd"}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <p-toast></p-toast>
+  </p-tabPanel>
+</p-tabView>

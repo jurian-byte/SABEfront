@@ -1,0 +1,102 @@
+[
+    {
+        "WoNo": "123",
+        "RowNo": 1,
+        "Sign": "sign",
+        "Description": "description",
+        "OrgCode": "orgCode",
+        "OrgCodeDesc": "orgCodeDesc",
+        "Contract": "contract",
+        "InternalRemark": "internalRemark",
+        "PlanHrs": 1,
+        "Objstate": "objstate",
+        "Objid": "objid",
+        "Objversion": "objversion",
+        "Objevents": "objevents",
+        "Files": [
+            {
+                "DocClass": "WORKREQUEST",
+                "DocNo": "335",
+                "DocSheet": "1",
+                "DocRev": "1",
+                "DocType": "WORKREQUEST",
+                "Title": "File 1",
+                "DtDocRev": "2019-10-23T00:00:00"
+            },
+            {
+                "DocClass": "WORKREQUEST",
+                "DocNo": "335",
+                "DocSheet": "1",
+                "DocRev": "1",
+                "DocType": "WORKREQUEST",
+                "Title": "File 2",
+                "DtDocRev": "2019-10-23T00:00:00"
+            },
+            {
+                "DocClass": "WORKREQUEST",
+                "DocNo": "335",
+                "DocSheet": "1",
+                "DocRev": "1",
+                "DocType": "WORKREQUEST",
+                "Title": "File 3",
+                "DtDocRev": "2019-10-23T00:00:00"
+            }
+        ],
+        "TimeReporting": {
+            "Rowno": 1,
+            "Qty": 1,
+            "Objid": "objid",
+            "Objversion": "objversion"
+        }
+    },
+    {
+        "WoNo": "1234",
+        "RowNo": 2,
+        "Sign": "sign2",
+        "Description": "description2",
+        "OrgCode": "orgCode2",
+        "OrgCodeDesc": "orgCodeDesc2",
+        "Contract": "contract2",
+        "InternalRemark": "internalRemark2",
+        "PlanHrs": 2,
+        "Objstate": "objstate2",
+        "Objid": "objid2",
+        "Objversion": "objversion2",
+        "Objevents": "objevents2",
+        "Files": [
+            {
+                "DocClass": "WORKREQUEST",
+                "DocNo": "335",
+                "DocSheet": "1",
+                "DocRev": "1",
+                "DocType": "WORKREQUEST",
+                "Title": "File 1",
+                "DtDocRev": "2019-10-23T00:00:00"
+            },
+            {
+                "DocClass": "WORKREQUEST",
+                "DocNo": "335",
+                "DocSheet": "1",
+                "DocRev": "1",
+                "DocType": "WORKREQUEST",
+                "Title": "File 2",
+                "DtDocRev": "2019-10-23T00:00:00"
+            },
+            {
+                "DocClass": "WORKREQUEST",
+                "DocNo": "335",
+                "DocSheet": "1",
+                "DocRev": "1",
+                "DocType": "WORKREQUEST",
+                "Title": "File 3",
+                "DtDocRev": "2019-10-23T00:00:00"
+            }
+        ],
+        "TimeReporting": {
+            "Rowno": 2,
+            "Qty": 2,
+            "Objid": "objid2",
+            "Objversion": "objversion2"
+        }
+    }
+]

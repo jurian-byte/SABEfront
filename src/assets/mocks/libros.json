@@ -1,0 +1,35 @@
+[
+  {
+    "isbn": 9789500426404,
+    "nombre": "El Principito/ The Little Prince (Spanish Edition)",
+    "editorial": "1st",
+    "autor": "Saint-Exupery, Antoine de",
+    "estado": "Disponible",
+    "idEjemplar": 1,
+    "cantidad": 3,
+    "clase": "b",
+    "subclase": "a"
+  },
+  {
+    "isbn": 9788441529793,
+    "nombre": "C++ (Spanish Edition)",
+    "editorial": "1st",
+    "autor": "Liberty, Jesse, Cadenhead, Rogers",
+    "estado": "Ocupado",
+    "idEjemplar": 2,
+    "cantidad": 5,
+    "clase": "b",
+    "subclase": "c"
+  },
+  {
+    "isbn": 9780030339288,
+    "nombre": "El proximo paso",
+    "editorial": "1st",
+    "autor": "Mujica, Bárbara",
+    "estado": "Disponible",
+    "idEjemplar": 3,
+    "cantidad": 1,
+    "clase": "h",
+    "subclase": "a"
+  }
+]

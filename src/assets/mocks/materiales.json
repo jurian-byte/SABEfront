@@ -1,0 +1,17 @@
+[
+  {
+    "idMateriales": 6,
+    "estado": "Disponible",
+    "tipo": 2
+  },
+  {
+    "idMateriales": 8,
+    "estado": "Ocupado",
+    "tipo": 2
+  },
+  {
+    "idMateriales": 9,
+    "estado": "Disponible",
+    "tipo": 1
+  }
+]

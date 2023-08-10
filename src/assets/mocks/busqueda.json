@@ -1,0 +1,93 @@
+[
+    {
+        "isbn": 1,
+        "libro": "El ingenioso hidalgo Don Quijote de la Mancha",
+        "edicion": "Primera edición",
+        "autor": "Miguel de Cervantes",
+        "estado": "disponible"
+    },
+    {
+        "isbn": 2,
+        "libro": "Cien años de soledad",
+        "edicion": "Primera edición",
+        "autor": "Gabriel García Márquez",
+        "estado": "ocupado"
+    },
+    {
+        "isbn": 3,
+        "libro": "Rayuela",
+        "edicion": "Primera edición",
+        "autor": "Julio Cortázar",
+        "estado": "disponible"
+    },
+    {
+        "isbn": 4,
+        "libro": "La ciudad y los perros",
+        "edicion": "Primera edición",
+        "autor": "Mario Vargas Llosa",
+        "estado": "ocupado"
+    },
+    {
+        "isbn": 5,
+        "libro": "Ficciones",
+        "edicion": "Primera edición",
+        "autor": "Jorge Luis Borges",
+        "estado": "disponible"
+    },
+    {
+        "isbn": 6,
+        "libro": "La tregua",
+        "edicion": "Primera edición",
+        "autor": "Mario Benedetti",
+        "estado": "ocupado"
+    },
+    {
+        "isbn": 7,
+        "libro": "Pedro Páramo",
+        "edicion": "Primera edición",
+        "autor": "Juan Rulfo",
+        "estado": "disponible"
+    },
+    {
+        "isbn": 8,
+        "libro": "El otoño del patriarca",
+        "edicion": "Primera edición",
+        "autor": "Gabriel García Márquez",
+        "estado": "ocupado"
+    },
+    {
+        "isbn": 9,
+        "libro": "Los pasos perdidos",
+        "edicion": "Primera edición",
+        "autor": "Alejo Carpentier",
+        "estado": "disponible"
+    },
+    {
+        "isbn": 0,
+        "libro": "La casa verde",
+        "edicion": "Primera edición",
+        "autor": "Mario Vargas Llosa",
+        "estado": "ocupado"
+    },
+    {
+        "isbn": 1,
+        "libro": "El aleph",
+        "edicion": "Primera edición",
+        "autor": "Jorge Luis Borges",
+        "estado": "disponible"
+    },
+    {
+        "isbn": 2,
+        "libro": "La muerte de Artemio Cruz",
+        "edicion": "Primera edición",
+        "autor": "Carlos Fuentes",
+        "estado": "ocupado"
+    },
+    {
+        "isbn": 3,
+        "libro": "La guerra del fin del mundo",
+        "edicion": "Primera edición",
+        "autor": "Mario Vargas Llosa",
+        "estado": "disponible"
+    }
+]

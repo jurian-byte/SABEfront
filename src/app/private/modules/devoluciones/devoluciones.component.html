@@ -1,0 +1,89 @@
+<p-tabView>
+  <p-tabPanel header="Devoluciones libros">
+<div class="card">
+  <div class="card-header">
+    <h3>Devoluciones libros</h3>
+    <p-table [value]="devolucionesL" responsiveLayout="stack" [breakpoint]="'600px'" [paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="text-center" style="width: 33%"><span class="p-column-title"></span>Resultados</th>
+          <th class="text-center" style="width: 33%"><span class="p-column-title"></span>ISBN</th>
+          <th class="text-center" style="width: 33%"><span class="p-column-title"></span>Encuesta</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-devolucionesL>
+        <tr>
+          <td class="text-center"><span class="p-column-title">ID prestamo</span>{{devolucionesL.idPrestamoL}}</td>
+          <td class="text-center"><span class="p-column-title">ISBN</span>{{devolucionesL.libro_ISBN}}</td>
+          <td class="text-center"><button pButton type="button" label="Encuesta" (click)="showDialog()"></button></td>
+          
+        </tr>
+      </ng-template>
+      
+    </p-table>
+    <p-toast></p-toast>
+  </div>
+</div>
+  </p-tabPanel>
+
+  <p-tabPanel header="Devoluciones materiales">
+    <div class="card">
+      <div class="card-header">
+        <h3>Devoluciones materiales</h3>
+        <p-table [value]="devolucionesM" responsiveLayout="stack" [breakpoint]="'600px'" [paginator]="true" [rows]="10">
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="text-center" style="width: 33%"><span class="p-column-title"></span>Resultados</th>
+              <th class="text-center" style="width: 33%"><span class="p-column-title"></span>Material</th>
+              <th class="text-center" style="width: 33%"><span class="p-column-title"></span>Encuesta</th>
+    
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-devolucion>
+            <tr>
+              <td class="text-center"><span class="p-column-title">ID</span>{{devolucion.idPrestamoM}}</td>
+              <td class="text-center"><span class="p-column-title">Material</span>{{devolucion.tipo}}</td>'
+              <button type="button" class="btn btn-primary" (click)="showDialog()">Encuesta</button>
+            </tr>
+          </ng-template>
+        </p-table>
+        <p-toast></p-toast>
+      </div>
+    </div>
+  </p-tabPanel>
+
+</p-tabView>
+
+
+<p-dialog [(visible)]="displayDialogL" [draggable]="false" [resizable]="false" header="Encuesta de satisfacción" [modal]="true"
+  styleClass="p-fluid"  [closable]="respuestasCompletas" [closeOnEscape]="respuestasCompletas">
+  <ng-template pTemplate="content">
+
+    <div>
+      <div class="card-header"></div>
+      <div class="card-body">
+       
+        <ng-container *ngFor="let pregunta of preguntas">
+        
+          <div class="pregunta-item">
+            <p>Por favor, responda a las siguientes preguntas:</p>
+            <div class="pregunta">{{ pregunta.pregunta }}</div>
+            <div class="respuesta">
+              <p-rating [(ngModel)]="pregunta.rating" [cancel]="false" [readonly]="false"
+                (ngModelChange)="checkRespuestasCompletas()"></p-rating>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"
+      [disabled]="!respuestasCompletas"></button>
+    <button pButton pRipple label="Enviar respuestas" icon="pi pi-check" class="p-button-text"
+      (click)="enviarRespuestas()" [disabled]="!respuestasCompletas"></button>
+  </ng-template>
+</p-dialog>
+<p-toast></p-toast>
+```
+

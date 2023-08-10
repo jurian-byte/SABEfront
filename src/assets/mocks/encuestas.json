@@ -1,0 +1,21 @@
+{
+  "id": 1,
+  "nombre": "Encuesta de satisfacción",
+  "preguntas": [
+    {
+      "id": 1,
+      "pregunta": "¿Cómo calificaría la atención al cliente?",
+      "rating": 3
+    },
+    {
+      "id": 2,
+      "pregunta": "¿Está satisfecho con la calidad del producto?",
+      "rating": 4
+    },
+    {
+      "id": 3,
+      "pregunta": "¿Recomendaría nuestro servicio a un amigo?",
+      "rating": 5
+    }
+  ]
+}

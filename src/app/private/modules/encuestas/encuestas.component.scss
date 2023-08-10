@@ -1,0 +1,18 @@
+.button-container {
+  margin-top: 10px; 
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+  
+  @media (max-width: 600px) {
+    justify-content: flex-end; // Centra el botón cuando el ancho de pantalla es menor o igual a 600px
+  }
+}
+
+.p-column-title {
+  font-weight: bold;
+}
+
+.table-container {
+  margin-bottom: 10px; /* Ajusta el valor según sea necesario */
+}

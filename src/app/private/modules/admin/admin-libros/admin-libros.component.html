@@ -1,0 +1,297 @@
+<div class="card">
+    <h3>Libros</h3>
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2"
+                (click)="openNew()"></button>
+
+                <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
+                    (click)="showDeleteLibrosDialog()" [disabled]="!selectedLibros || !selectedLibros.length"></button>
+    
+        </ng-template>
+        <ng-template pTemplate="right">
+            <button pButton pRipple label="Importar manual" icon="pi pi-" class="p-button-info small-button"
+            (click)="importarDialogM = true"></button>
+            <button pButton pRipple label="Importar ISBN" icon="pi pi-" class="p-button-info small-button small-button-last"
+            (click)="importarDialog = true"></button>
+        </ng-template>
+        
+        
+    </p-toolbar>
+
+
+    <p-table [value]="filteredLibros" [rows]="10" [paginator]="true"
+        [globalFilterFields]="['numeroBoletaEmpleado', 'isbn']" [tableStyle]="{'min-width': '100%'}"
+        [(selection)]="selectedLibros" [rowHover]="true" dataKey="isbn"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+        [showCurrentPageReport]="true" [resizableColumns]="true" [autoLayout]="true" [style]="{maxWidth: '100%'}"
+        [responsiveLayout]="'stack'" breakpoint="600px">
+
+
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Control de libros</h5>
+                <span class="p-input-icon-left">
+                    <div class="p-inputgroup">
+                        <input pInputText type="text" (input)="filterBooks()" [(ngModel)]="searchText"
+                            placeholder="Buscar..." />
+                    </div>
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 4rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="isbn" style="min-width:10rem">ISBN<p-sortIcon field="isbn"></p-sortIcon></th>
+                <th pSortableColumn="titulo" style="min-width:10rem">Titulo<p-sortIcon field="titulo"></p-sortIcon></th>
+                <th pSortableColumn="autor" style="min-width:10rem">Autor<p-sortIcon field="autor"></p-sortIcon></th>
+                <th pSortableColumn="edicion" style="min-width:10rem">Editorial<p-sortIcon field="edicion"></p-sortIcon>
+                </th>
+                <th pSortableColumn="fecha" style="min-width:10rem">Fecha<p-sortIcon field="fecha"></p-sortIcon></th>
+                <th pSortableColumn="lenguaje" style="min-width:10rem">Lenguaje<p-sortIcon
+                        field="lenguaje"></p-sortIcon>
+                </th>
+                <th pSortableColumn="numeroEjemplares" style="min-width:10rem">Ejemplares<p-sortIcon
+                        field="numeroEjemplares"></p-sortIcon>
+                </th>
+                <th pSortableColumn="clase" style="min-width:10rem">Clase<p-sortIcon field="clase"></p-sortIcon>
+                </th>
+                <th pSortableColumn="subclase" style="min-width:10rem">Subclase<p-sortIcon
+                        field="subclase"></p-sortIcon>
+                </th>
+                <th>Acciones</th>
+                <th style="width: 8rem"></th>
+
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-libro>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="libro"></p-tableCheckbox>
+                </td>
+
+                <td><span class="p-column-title">ISBN</span>{{libro.isbn}}</td>
+                <td><span class="p-column-title">Nombre</span>{{libro.nombre}}</td>
+                <td><span class="p-column-title">Autor</span>{{libro.autor}}</td>
+                <td><span class="p-column-title">Editorial</span>{{libro.editorial}}</td>
+                <td><span class="p-column-title">Fecha</span>{{libro.fecha}}</td>
+                <td><span class="p-column-title">Lenguaje</span>{{libro.lenguage}}</td>
+                <td><span class="p-column-title">Cantidad</span>{{libro.cantidad}}</td>
+                <td><span class="p-column-title">Clase</span>{{libro.clase}}</td>
+                <td><span class="p-column-title">Subclase</span>{{libro.subclase}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                        (click)="editLibro(libro)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                        (click)="showDeleteLibroDialog(libro)"></button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<p-dialog [(visible)]="libroDialog" [draggable]="false" [resizable]="false" header="Datos libro" [modal]="true"
+    styleClass="p-fluid" [maximizable]="true">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="isbn">ISBN</label>
+            <input type="text" pInputText id="isbn" [(ngModel)]="libro.isbn" required autofocus />
+            <small class="p-error" *ngIf="submitted && !libro.isbn">ISBN es requerido.</small>
+        </div>
+
+
+        <div class="field">
+            <label for="numeroEjemplares">Numero de ejemplares</label>
+            <input type="text" pInputText id="numeroEjemplares" [(ngModel)]="libro.cantidad" required autofocus />
+            <small class="p-error" *ngIf="submitted && !libro.cantidad">Numero de ejemplares es requerido.</small>
+        </div>
+
+        <div class="field">
+            <label for="clase">Clase</label>
+            <input type="text" pInputText id="clase" [(ngModel)]="libro.clase" required autofocus />
+            <small class="p-error" *ngIf="submitted && !libro.clase">Clase es requerida.</small>
+        </div>
+        <div class="field">
+            <label for="subclase">Subclase</label>
+            <input type="text" pInputText id="subclase" [(ngModel)]="libro.subclase" required autofocus />
+            <small class="p-error" *ngIf="submitted && !libro.subclase">Subclase es requerida.</small>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+            (click)="hideDialog()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveLibro()"></button>
+
+
+        <button pButton pRipple label="Agregar manualmente" icon="pi pi-plus" class="p-button-text" (click)="showLibroDialogM()"></button>
+    </ng-template>
+</p-dialog>
+
+
+
+<p-dialog [(visible)]="libroDialogM" [draggable]="false" [resizable]="false" header="Datos libro" [modal]="true"
+    styleClass="p-fluid" [maximizable]="true">
+
+    <ng-template pTemplate="content">
+
+        <div class="field">
+            <label for="isbn">ISBN</label>
+            <input type="text" pInputText id="isbn" [(ngModel)]="libro.isbn" required autofocus />
+            <small class="p-error" *ngIf="submitted && !libro.isbn">ISBN es requerido.</small>
+        </div>
+
+        <div class="field">
+            <label for="nombre">Nombre</label>
+            <input type="text" pInputText id="nombre" [(ngModel)]="libro.nombre" required autofocus />
+            <small class="p-error" *ngIf="submitted && !libro.nombre">Nombre es requerido.</small>
+        </div>
+
+        <div class="field">
+            <label for="autor">Autor</label>
+            <input type="text" pInputText id="autor" [(ngModel)]="libro.autor" required autofocus />
+            <small class="p-error" *ngIf="submitted && !libro.autor">Autor es requerido.</small>
+        </div>
+
+        <div class="field">
+            <label for="editorial">Editorial</label>
+            <input type="text" pInputText id="editorial" [(ngModel)]="libro.editorial" required autofocus />
+            <small class="p-error" *ngIf="submitted && !libro.cantidad">Editorial es requerido.</small>
+        </div>
+
+        <div class="field">
+            <label for="fecha">Fecha</label>
+            <input type="text" pInputText id="fecha" [(ngModel)]="libro.fecha" required autofocus placeholder="Año"/>
+            <small class="p-error" *ngIf="submitted && !libro.fecha">Fecha es requerido.</small>
+
+        </div>
+
+        <div class="field">
+            <label for="lenguage">Lenguaje</label>
+            <input type="text" pInputText id="lenguage" [(ngModel)]="libro.lenguage" required autofocus placeholder="Unicamente dos letras"/>
+            <small class="p-error" *ngIf="submitted && !libro.lenguage">Lenguaje es requerido.</small>
+        </div>
+
+
+        <div class="field">
+            <label for="numeroEjemplares">Numero de ejemplares</label>
+            <input type="text" pInputText id="numeroEjemplares" [(ngModel)]="libro.cantidad" required autofocus />
+            <small class="p-error" *ngIf="submitted && !libro.cantidad">Numero de ejemplares es requerido.</small>
+        </div>
+
+        <div class="field">
+            <label for="clase">Clase</label>
+            <input type="text" pInputText id="clase" [(ngModel)]="libro.clase" required autofocus />
+            <small class="p-error" *ngIf="submitted && !libro.clase">Clase es requerida.</small>
+        </div>
+        <div class="field">
+            <label for="subclase">Subclase</label>
+            <input type="text" pInputText id="subclase" [(ngModel)]="libro.subclase" required autofocus />
+            <small class="p-error" *ngIf="submitted && !libro.subclase">Subclase es requerida.</small>
+        </div>
+
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+            (click)="hideDialogM()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveLibroM()"></button>
+
+
+    
+       
+    </ng-template>
+</p-dialog>
+
+
+
+
+<p-dialog header="Eliminar libro" [(visible)]="deleteLibroDialog" [responsive]="true">
+    <p>
+        ¿Estás seguro de que deseas eliminar el libro {{ libro.isbn }}?
+    </p>
+    <button pButton pRipple label="Si" icon="pi pi-check" class="p-button-text" (click)="confirmDelete()"></button>
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+        (click)="deleteLibroDialog = false"></button>
+</p-dialog>
+
+
+
+<p-dialog header="Eliminar libros" [(visible)]="deleteLibrosDialog" [responsive]="true" [modal]="true">
+    <p>
+        ¿Estás seguro de que deseas eliminar los libros seleccionados?
+    </p>
+    <button pButton pRipple label="Si" icon="pi pi-check" class="p-button-text"
+        (click)="deleteSelectedLibros()"></button>
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+        (click)="deleteLibrosDialog= false"></button>
+</p-dialog>
+
+
+
+<p-dialog header="Importar" [(visible)]="importarDialogM" [responsive]="true" [modal]="true" [style]="{width:'70vw'}" [resizable]="false" [draggable]="false">
+    <div class="dialog-container"  style="overflow: hidden">
+        <hot-table class="w-full"
+        [hotId]="'hotlibros'"
+          [data]="dataset"
+          [data]="dataset"
+          [colHeaders]="true"
+          [rowHeaders]="true"
+          height="auto"
+          [minSpareRows]="1"
+          licenseKey="non-commercial-and-evaluation">
+            <hot-column data="isbn"  title="ISBN" ></hot-column>
+            <hot-column data="nombre" title="Nombre" ></hot-column>
+            <hot-column data="editorial" title="Editorial" ></hot-column>
+            <hot-column data="autor" title="Autor" ></hot-column>
+            <hot-column data="cantidad" title="Cantidad" ></hot-column>
+            <hot-column data="clase" title="Clase" ></hot-column>
+            <hot-column data="subclase" title="Subclase" ></hot-column>
+            <hot-column data="fecha" title="Año"></hot-column>
+            <hot-column data="lenguage" title="Lenguaje"></hot-column>
+        </hot-table>
+      </div>
+      
+    <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
+        (click)="guardarImport()"></button>
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+        (click)="importarDialogM= false"></button>
+</p-dialog>
+
+
+
+<p-dialog header="Importar" [(visible)]="importarDialog" [responsive]="true" [modal]="true" [style]="{width:'80vw'}" [resizable]="false" [draggable]="false">
+    <div class="dialog-container"  style="overflow: hidden">
+        <hot-table class="full-width-height"
+        [hotId]="'hotlibrosM'"
+          [data]="dataset"
+          [colHeaders]="true"
+          [rowHeaders]="true"
+          height="auto"
+          [minSpareRows]="1"
+          licenseKey="non-commercial-and-evaluation">
+            <hot-column data="isbn"  title="ISBN"  [width]="150"></hot-column>
+            <hot-column data="cantidad" title="Cantidad"  [width]="150"></hot-column>
+            <hot-column data="clase" title="Clase" [width]="150"></hot-column>
+            <hot-column data="subclase" title="Subclase" [width]="150"></hot-column>
+        </hot-table>
+      </div>
+      
+    <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
+        (click)="guardarImporAPI()"></button>
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+        (click)="importarDialog= false"></button>
+</p-dialog>
+
+
+
+
+<p-toast position="top-right"></p-toast>

@@ -1,0 +1,194 @@
+<div class="card">
+    <h3>Usuarios</h3>
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2"
+                (click)="openNew()"></button>
+            <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
+                (click)="deleteSelectedUsuarios()" [disabled]="!selectedUsuarios || !selectedUsuarios.length"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="Usuarios" [rows]="10" [paginator]="true"
+        [globalFilterFields]="['name','country.name','representative.name','status']"
+        [tableStyle]="{'min-width': '75rem'}" [(selection)]="selectedUsuarios" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Control usuarios</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')"
+                        placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 4rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="idUsuario" style="min-width:10rem">ID usuario<p-sortIcon field="idUsuario"></p-sortIcon></th>
+
+                <th pSortableColumn="nombre" style="min-width:10rem">Nombre<p-sortIcon field="nombre"></p-sortIcon></th>
+
+                <th pSortableColumn="apellidoP" style = "min-width: 10rem;">Apellido paterno<p-sortIcon field="apellidoP"></p-sortIcon></th>
+                
+                <th pSortableColumn="apellidoM" style="min-width: 10rem">Apellido materno <p-sortIcon field="apellidoM"></p-sortIcon></th>
+
+                <th pSortableColumn="telefono"style="min-width:10rem">Teléfono<p-sortIcon field="telefono"></p-sortIcon></th>
+
+                <th pSortableColumn="calle" style="min-width:10rem">Calle<p-sortIcon field="calle"></p-sortIcon></th>
+
+                <th pSortableColumn="colonia" style="min-width:10rem">Colonia<p-sortIcon field="colonia"></p-sortIcon></th>
+
+                <th pSortableColumn="delegacion" style="min-width:10rem">Delegación<p-sortIcon field="cp"></p-sortIcon></th>
+
+                <th pSortableColumn="cp" style="min-width:10rem">Código postal<p-sortIcon field="cp"></p-sortIcon></th>
+
+                <th pSortableColumn="int" style="min-width:5rem">Número interior<p-sortIcon field="int"></p-sortIcon></th>
+
+                <th pSortableColumn="ext" style="min-width:5rem">Número exterior<p-sortIcon field="cp"></p-sortIcon></th>
+
+                <th pSortableColumn="email" style="min-width:10rem">Correo electrónico<p-sortIcon field="email"></p-sortIcon></th>
+
+                <th pSortableColumn="rol" style="min-width:10rem">Rol<p-sortIcon field="rol"></p-sortIcon></th>
+
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-Usuario>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="Usuario"></p-tableCheckbox>
+                </td>
+                <td>{{Usuario.nuumeroBoleta}}</td>
+                <td>{{Usuario.idUsuario}}</td>
+                <td>{{Usuario.nombre}}</td>
+                <td>{{Usuario.apellidoP}}</td>
+                <td>{{Usuario.apellidoM}}</td>
+                <td>{{Usuario.telefono}}</td>
+                <td>{{Usuario.calle}}</td>
+                <td>{{Usuario.colonia}}</td>
+                <td>{{Usuario.delegacion}}</td>
+                <td>{{Usuario.cp}}</td>
+                <td>{{Usuario.int}}</td>
+                <td>{{Usuario.ext}}</td>
+                <td>{{Usuario.email}}</td>
+                <td>{{Usuario.password}}</td>
+                <td>{{Usuario.rol}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                        (click)="editUsuario(Usuario)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                        (click)="deleteUsuario(Usuario)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                En total hay {{Usuarios ? Usuarios.length : 0 }} Usuarios.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="UsuarioDialog" [style]="{width: '450px'}" header="Datos usuario" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="idUsuario">ID usuario</label>
+            <input type="text" pInputText id="idUsuario" [(ngModel)]="Usuario.idUsuario" required autofocus />
+            <small class="p-error" *ngIf="submitted && !Usuario.idUsuario">ID usuario es requerido.</small>
+        </div>
+
+        <div class="field">
+            <label for="nombre">Nombre(s)</label>
+            <input type="text" pInputText id="name" [(ngModel)]="Usuario.nombre" required autofocus />
+            <small class="p-error" *ngIf="submitted && !Usuario.nombre">Nombre es requerido.</small>
+        </div>
+
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="apellidoP">Apellido paterno</label>
+                <input type="text" pInputText id="apellidoP" [(ngModel)]="Usuario.apellidoP" required autofocus />
+                <small class="p-error" *ngIf="submitted && !Usuario.apellidoP">Apellido paterno es requerido.</small>
+            </div>
+
+            <div class="field col">
+                <label for="apellidoM">Apellido materno</label>
+                <input type="text" pInputText id="apellidoM" [(ngModel)]="Usuario.apellidoM" required autofocus />
+                <small class="p-error" *ngIf="submitted && !Usuario.apellidoM">Apellido paterno es requerido.</small>
+            </div>
+        </div>
+        <div class="field">
+            <label for="telefono">Teléfono</label>
+            <input type="text" pInputText id="telefono" [(ngModel)]="Usuario.telefono" required autofocus />
+            <small class="p-error" *ngIf="submitted && !Usuario.nombre">Nombre es requerido.</small>
+        </div>
+        <div class="field">
+            <label for="calle">Calle</label>
+            <input type="text" pInputText id="calle" [(ngModel)]="Usuario.calle" required autofocus />
+            <small class="p-error" *ngIf="submitted && !Usuario.calle">Calle es requerido.</small>
+        </div>
+        <div class="field">
+            <label for="colonia">Colonia</label>
+            <input type="text" pInputText id="colonia" [(ngModel)]="Usuario.colonia" required autofocus />
+            <small class="p-error" *ngIf="submitted && !Usuario.colonia">Colonia es requerido.</small>  
+        </div>
+
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="delegacion">Delegación</label>
+                <input type="text" pInputText id="delegacion" [(ngModel)]="Usuario.delegacion" required autofocus />
+                <small class="p-error" *ngIf="submitted && !Usuario.delegacion">Delegación es requerido.</small>
+            </div>
+
+            <div class="field col">
+                <label for="cp">Código postal</label>
+                <input type="text" pInputText id="cp" [(ngModel)]="Usuario.cp" required autofocus />
+                <small class="p-error" *ngIf="submitted && !Usuario.cp">Código postal es requerido.</small>
+            </div>
+        </div>
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="int">Número interior</label>
+                <input type="text" pInputText id="int" [(ngModel)]="Usuario.int" required autofocus />
+                <small class="p-error" *ngIf="submitted && !Usuario.int">Número interior es requerido.</small>
+            </div>
+
+            <div class="field col">
+                <label for="ext">Número exterior</label>
+                <input type="text" pInputText id="ext" [(ngModel)]="Usuario.ext" required autofocus />
+                <small class="p-error" *ngIf="submitted && !Usuario.ext">Número exterior es requerido.</small>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="email">Email</label>
+            <input type="text" pInputText id="email" [(ngModel)]="Usuario.email" required autofocus />
+            <small class="p-error" *ngIf="submitted && !Usuario.email">Email es requerido.</small>
+        </div>
+        <div class="field">
+            <label for="password">Password</label>
+            <input type="text" pInputText id="password" [(ngModel)]="Usuario.password" required autofocus />
+            <small class="p-error" *ngIf="submitted && !Usuario.password">Password es requerido.</small>
+        </div>
+        
+        <div class="field">
+            <label for="rol">Rol</label>
+            <input type="text" pInputText id="rol" [(ngModel)]="Usuario.rol" required autofocus />
+            <small class="p-error" *ngIf="submitted && !Usuario.rol">Rol es requerido.</small>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveUsuario()"></button>
+    </ng-template>
+</p-dialog>
+
+
+
+
+
+ 

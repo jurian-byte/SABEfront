@@ -1,0 +1,22 @@
+{
+    "idEncuesta": 1,
+    "nombre": "Encuesta de satisfacción",
+    "preguntas": [
+      {
+        "idPregunta": 1,
+        "pregunta": "¿Cómo calificarías nuestro servicio?",
+        "rating": 4
+      },
+      {
+        "idPregunta": 2,
+        "pregunta": "¿Recomendarías nuestros productos a otros?",
+        "rating": 5
+      },
+      {
+        "idPregunta": 3,
+        "pregunta": "¿Qué podemos mejorar en nuestra atención al cliente?",
+        "rating": 3
+      }
+    ]
+  }
+  

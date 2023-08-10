@@ -1,0 +1,235 @@
+<div class="grid">
+    <div class="col-12 ">
+        <form [formGroup]="formUsuario" (ngSubmit)="changeProfileInfo()">
+            <div class="card">
+                <h2>Datos usuario</h2>
+                <div class="formgrid grid">
+
+                   
+                    <div class="field col-12 md:col-6">
+                        <input id="numeroBoleta" type="text" formControlName="numeroBoleta"
+                            class="p-inputtext p-component w-full"
+                            [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('numeroBoleta')?.invalid && formUsuario.get('numeroBoleta')?.touched, 'input-filled': formUsuario.get('numeroBoleta')?.value }"
+                            value="{{ usuarioInfo.user.numeroBoleta }}" />
+
+                        <label for="nombre">Numero de boleta</label>
+
+                        <p-message
+                            *ngIf="formUsuario.get('numeroBoleta')?.invalid && formUsuario.get('numeroBoleta')?.touched"
+                            severity="error" text="El numero de boleta/empleado es requerido"></p-message>
+                    </div>
+
+
+
+
+                    <div class="field col-12 md:col-6">
+                        <input id="nombres" type="text" formControlName="nombres" class="p-inputtext p-component w-full"
+                            [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('nombres')?.invalid && formUsuario.get('nombres')?.touched, 'input-filled': formUsuario.get('nombres')?.value }"
+                            value="{{ usuarioInfo.user.nombres }}" />
+
+                        <label for="nombre">Nombre</label>
+
+                        <p-message *ngIf="formUsuario.get('nombres')?.invalid && formUsuario.get('nombres')?.touched"
+                            severity="error" text="El numero de boleta/empleado es requerido"></p-message>
+                    </div>
+
+
+
+
+                    <div class="field col-12 md:col-6">
+                        <input id="apellidoPaterno" type="text" formControlName="apellidoPaterno"
+                            class="p-inputtext p-component w-full"
+                            [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('apellidoPaterno')?.invalid && formUsuario.get('apellidoPaterno')?.touched, 'input-filled': formUsuario.get('apellidoPaterno')?.value }" 
+                            value="{{usuarioInfo.user.apellidoPaterno}}"/>
+                        <label for="apellidoPaterno">Apellido paterno</label>
+
+                        <p-message
+                            *ngIf="formUsuario.get('apellidoPaterno')?.invalid && formUsuario.get('apellidoPaterno')?.touched"
+                            severity="error" text="El apellido paterno es requerido"></p-message>
+                    </div>
+
+
+
+
+
+                    <div class="field col-12 md:col-6">
+                        <input id="apellidoMaterno" type="text" formControlName="apellidoMaterno"
+                            class="p-inputtext p-component w-full"
+                            [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('apellidoMaterno')?.invalid && formUsuario.get('apellidoMaterno')?.touched, 'input-filled': formUsuario.get('apellidoMaterno')?.value }
+                            " value="{{usuarioInfo.user.apellidoMaterno}}"/> 
+                        <label for="apellidoMaterno">Apellido materno</label>
+
+                        <p-message
+                            *ngIf="formUsuario.get('apellidoMaterno')?.invalid && formUsuario.get('apellidoMaterno')?.touched"
+                            severity="error" text="El apellido materno es requerido"></p-message>
+                    </div>
+
+
+
+                    <div class="field col-12 md:col-6">
+                        <input id="calle" type="text" formControlName="calle" class="p-inputtext p-component w-full"
+                            [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('calle')?.invalid && formUsuario.get('calle')?.touched, 'input-filled': formUsuario.get('calle')?.value }
+                            "
+                            value="{{usuarioInfo.user.calle}}"/> 
+                        <label for="calle">Calle</label>
+
+                        <p-message *ngIf="formUsuario.get('calle')?.invalid && formUsuario.get('calle')?.touched"
+                            severity="error" text="La calle es requerida"></p-message>
+                    </div>
+
+
+
+
+
+                    <div class="field col-12 md:col-6">
+                        <input id="numeroExterior" type="text" formControlName="numeroExterior"
+                            class="p-inputtext p-component w-full"
+                            [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('numeroExterior')?.invalid && formUsuario.get('numeroExterior')?.touched, 'input-filled': formUsuario.get('numeroExterior')?.value }
+                            " value="{{usuarioInfo.user.numeroExterior}}"/> 
+                        <label for="numeroExterior">Numero exterior</label>
+
+                        <p-message
+                            *ngIf="formUsuario.get('numeroExterior')?.invalid && formUsuario.get('numeroExterior')?.touched"
+                            severity="error" text="El numero exterior es requerido"></p-message>
+                    </div>
+
+
+
+
+                    <div class="field col-12 md:col-6">
+                        <input id="numeroInterior" type="text" formControlName="numeroInterior"
+                            class="p-inputtext p-component w-full"
+                            [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('numeroInterior')?.invalid && formUsuario.get('numeroInterior')?.touched, 'input-filled': formUsuario.get('numeroInterior')?.value }"
+                            value="{{usuarioInfo.user.numeroInterior}}"/> 
+                        <label for="numeroInterior">Numero interior</label>
+
+                        <p-message
+                            *ngIf="formUsuario.get('numeroInterior')?.invalid && formUsuario.get('numeroInterior')?.touched"
+                            severity="error" text="El numero interior es requerido"></p-message>
+                    </div>
+
+
+                    <div class="field col-12 md:col-6">
+                        <input id="colonia" type="text" formControlName="colonia" class="p-inputtext p-component w-full"
+                            [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('colonia')?.invalid && formUsuario.get('colonia')?.touched, 'input-filled': formUsuario.get('colonia')?.value }"
+                            value="{{usuarioInfo.user.colonia}}"/> 
+                        <label for="colonia" class="p-inputwrapper-filled">Colonia</label>
+                        <p-message *ngIf="formUsuario.get('colonia')?.invalid && formUsuario.get('colonia')?.touched"
+                            severity="error" text="La colonia es requerida"></p-message>
+                    </div>
+
+
+
+
+                    <div class="field col-12 md:col-6">
+                        <input id="delegacionMunicipio" type="text" formControlName="delegacionMunicipio"
+                            class="p-inputtext p-component w-full"
+                            [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('delegacionMunicipio')?.invalid && formUsuario.get('delegacionMunicipio')?.touched, 'input-filled': formUsuario.get('delegacionMunicipio')?.value }"
+                            value="{{usuarioInfo.user.delegacionMunicipio}}"/> 
+                        <label for="delegacionMunicipio" class="p-inputwrapper-filled">Delegación/Municipio</label>
+
+                        <p-message
+                            *ngIf="formUsuario.get('delegacionMunicipio')?.invalid && formUsuario.get('delegacionMunicipio')?.touched"
+                            severity="error" text="La delegación o municipio es requerido"></p-message>
+                    </div>
+
+
+
+
+                    <div class="field col-12 md:col-6">
+                        <input id="codigoPostal" type="text" formControlName="codigoPostal"
+                            class="p-inputtext p-component w-full"
+                            [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('codigoPostal')?.invalid && formUsuario.get('codigoPostal')?.touched, 'input-filled': formUsuario.get('codigoPostal')?.value }" 
+                            value="{{usuarioInfo.user.codigoPostal}}"/>
+                        <label for="codigoPostal" class="p-inputwrapper-filled">Código postal</label>
+
+                        <p-message
+                            *ngIf="formUsuario.get('codigoPostal')?.invalid && formUsuario.get('codigoPostal')?.touched"
+                            severity="error" text="El código postal es requerido"></p-message>
+                    </div>
+
+
+                    <div class="field col-12 md:col-6">
+                        <input id="celular" type="text" formControlName="celular" class="p-inputtext p-component w-full"
+                            [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('celular')?.invalid && formUsuario.get('celular')?.touched, 'input-filled': formUsuario.get('celular')?.value }"
+                            value="{{usuarioInfo.user.celular}}"/> 
+                        <label for="celular">Celular</label>
+
+                        <p-message *ngIf="formUsuario.get('celular')?.invalid && formUsuario.get('celular')?.touched"
+                            severity="error" text="El celular es requerido"></p-message>
+                    </div>
+
+                    <div class="field col-12 md:col-6">
+                        <input id="email" type="text" formControlName="email" class="p-inputtext p-component w-full"
+                            [ngClass]="{ 'ng-invalid ng-dirty': formUsuario.get('email')?.invalid && formUsuario.get('email')?.touched, 'input-filled': formUsuario.get('email')?.value }"
+                            value="{{usuarioInfo.user.email}}"/>
+                        <label for="email">Correo electrónico</label>
+
+                        <p-message *ngIf="formUsuario.get('email')?.invalid && formUsuario.get('email')?.touched"
+                            severity="error" text="El correo electrónico es requerido"></p-message>
+                    </div>
+
+                </div>
+
+                <p-button type="submit" label="Guardar cambios" [disabled]="formUsuario.pristine"></p-button>
+
+            </div>
+        </form>
+    </div>
+
+
+
+    <div class="col-12">
+        <form [formGroup]="formPassword" (ngSubmit)="changePassword()"
+            [ngClass]="{'no-clickable': formPassword.invalid}">
+            <div class="card m">
+                <h2>Contraseña</h2>
+                <div class="p-fluid grid">
+
+                   
+
+                    <div class="field col-12 md:col-12">
+                        <p-password id="password" formControlName="password" styleClass="p-password p-component w-full"
+                            [ngClass]="{ 'campo-invalido': formUsuario.get('password')?.invalid && (formUsuario.get('password')?.touched || formUsuario.get('password')?.dirty) }"
+                            [feedback]="false" [toggleMask]="true"
+                            placeholder="Contraseña actual"></p-password>
+                        
+
+                        <p-message
+                            *ngIf="formUsuario.get('password')?.invalid && (formUsuario.get('password')?.touched || formUsuario.get('password')?.dirty)"
+                            severity="error" text="La contraseña es requerida"></p-message>
+                    </div>
+
+                    <div class="field col-12 md:col-12">
+                        <p-password id="newPassword" formControlName="newPassword"
+                            styleClass="p-password p-component w-full"
+                            [ngClass]="{ 'campo-invalido': formUsuario.get('newPassword')?.invalid && (formUsuario.get('newPassword')?.touched || formUsuario.get('newPassword')?.dirty) }"
+                            [feedback]="false" [toggleMask]="true"
+                            placeholder="Nueva contraseña"></p-password>
+                      
+
+                        <p-message
+                            *ngIf="formUsuario.get('newPassword')?.invalid && (formUsuario.get('newPassword')?.touched || formUsuario.get('newPassword')?.dirty)"
+                            severity="error" text="La nueva contraseña es requerida"></p-message>
+                    </div>
+
+                    <div class="field col-12 md:col-12">
+                        <p-password id="confirmPassword" formControlName="confirmPassword"
+                            styleClass="p-password p-component w-full"
+                            [ngClass]="{ 'campo-invalido': formUsuario.get('confirmPassword')?.invalid && (formUsuario.get('confirmPassword')?.touched || formUsuario.get('confirmPassword')?.dirty) }"
+                            [feedback]="false" [toggleMask]="true"
+                            placeholder="Confirmar contraseña"></p-password>
+                    
+
+                        <p-message
+                            *ngIf="formUsuario.get('confirmPassword')?.invalid && (formUsuario.get('confirmPassword')?.touched || formUsuario.get('confirmPassword')?.dirty)"
+                            severity="error" text="La confirmacion de contraseña es requerida"></p-message>
+                    </div>
+                </div>
+                <p-button type="submit" label="Guardar cambios"></p-button>
+            </div>
+
+        </form>
+        <p-toast [style]="{top: '80px'}" position="top-right"></p-toast>
+    </div>
+</div>

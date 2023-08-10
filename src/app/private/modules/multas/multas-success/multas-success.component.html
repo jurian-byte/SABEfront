@@ -1,0 +1,19 @@
+<div *ngIf="loading" class="message-container">
+    <h3 class="message-title">
+        Multas Pagadas
+    </h3>
+    <p>Gracias por su pago. Hemos recibido su transacción exitosamente.
+    </p>
+    <p>Recuerda enviar el comprobante de pago a la siguiente dirección de correo electrónico: <strong>apoyoseducativos@escom.ipn.mx</strong>
+    </p>
+
+
+    <button 
+        pButton 
+        pRipple 
+        label="Aceptar" 
+        icon="pi pi-check" 
+        class="p-button-info" 
+        (click)="cerrarVentana()">
+    </button>
+</div>

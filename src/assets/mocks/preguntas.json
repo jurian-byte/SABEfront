@@ -1,0 +1,18 @@
+[
+    {
+      "idPregunta": 1,
+      "pregunta": "¿Cómo calificarías nuestro servicio?"
+     
+    },
+    {
+      "idPregunta": 2,
+      "pregunta": "¿Recomendarías nuestros productos a otros?"
+      
+    },
+    {
+      "idPregunta": 3,
+      "pregunta": "¿Facilidad para renovar los prestamos?"
+      
+    }
+  ]
+  

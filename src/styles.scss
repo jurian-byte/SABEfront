@@ -1,0 +1,68 @@
+/* Code Highlight */
+/*@import "../node_modules/prismjs/themes/prism-coy.css";*/
+$gutter: 1rem; //for primeflex grid system
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import '~handsontable/dist/handsontable.full.css';
+
+body {
+
+    background-color: #f6f4f6 !important;
+}
+
+.tabla-etiqueta-responsivo {
+    display: none;
+}
+
+@media (max-width: 960px) {
+    .tabla-etiqueta-responsivo {
+        display: block;
+
+    }
+
+    .tabla-dato-responsivo {
+        display: contents !important;
+        font-weight: bolder;
+    }
+}
+
+
+.campo {
+    @extend .border-primary-200;
+    @extend .p-2;
+    @extend .border-1;
+    @extend .border-solid;
+    @extend .border-round;
+    //   @extend .focus:border-primary-500;
+    @extend .outline-none;
+
+}
+
+.campo-invalido {
+    @extend .p-2;
+    @extend .border-1;
+    @extend .border-solid;
+    @extend .border-round;
+    @extend .border-red-400;
+}
+
+
+.campo {
+    @extend .border-primary-200;
+    @extend .p-2;
+    @extend .border-1;
+    @extend .border-solid;
+    @extend .border-round;
+    //   @extend .focus:border-primary-500;
+    @extend .outline-none;
+
+}
+
+.campo-consulta {
+    @extend .p-2;
+    @extend .border-1;
+    @extend .border-solid;
+    @extend .border-round;
+    @extend .border-primary-100;
+    @extend .bg-primary-100;
+}
